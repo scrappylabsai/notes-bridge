@@ -1,0 +1,11 @@
+# Cloudflare named tunnel config (~/.cloudflared/notes-bridge.yml). Any tunnel that gives the loopback
+# port an https hostname works the same way (Tailscale Funnel, ngrok, a reverse proxy on a VPS).
+#   cloudflared tunnel create notes-bridge
+#   cloudflared tunnel --config /dev/null route dns notes-bridge bridge.example.com
+#   cloudflared tunnel --config ~/.cloudflared/notes-bridge.yml run
+tunnel: <TUNNEL-UUID>
+credentials-file: /home/you/.cloudflared/<TUNNEL-UUID>.json
+ingress:
+  - hostname: bridge.example.com
+    service: http://localhost:9740
+  - service: http_status:404

@@ -1,0 +1,23 @@
+# systemd --user unit. Install: cp deploy/notes-bridge.service ~/.config/systemd/user/ && systemctl --user daemon-reload
+#   && systemctl --user enable --now notes-bridge. Logs: journalctl --user -u notes-bridge -f
+[Unit]
+Description=notes-bridge — token-authed door for your cloud agents into your notes (127.0.0.1:9740)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/notes-bridge
+Environment=BRIDGE_OWNER=Your Name
+Environment=BRIDGE_NAME=Notes Bridge
+Environment=BRIDGE_VAULT=%h/notes
+Environment=BRIDGE_PUBLIC_URL=https://bridge.example.com
+# Environment=BRIDGE_SEARCH_URL=http://127.0.0.1:9710      # optional indexer (see README: search backends)
+# Environment=BRIDGE_SCAN_CMD=%h/bin/judge-untrusted -     # optional injection judge (stdin → verdict)
+ExecStart=%h/notes-bridge/.venv/bin/python %h/notes-bridge/server.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

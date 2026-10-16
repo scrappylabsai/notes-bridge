@@ -1,0 +1,10 @@
+{
+  "_doc": "notes-bridge read policy. read_allow_prefixes = folders agents may search/read/list; deny wins over allow. oauth_redirect_hosts = where OAuth connectors may be sent back to (suffix match; http://localhost is always allowed). Edit, then restart the service.",
+  "read_allow_prefixes": ["Daily/", "Inbox/", "Ledgers/", "Projects/", "Wiki/"],
+  "deny_prefixes": ["Credentials/", "Private/", "People/", ".obsidian/", ".git/"],
+  "deny_substrings": ["credential", "secret", "token", "password"],
+  "max_read_bytes": 200000,
+  "max_write_bytes": 20000,
+  "rate_per_minute": 120,
+  "oauth_redirect_hosts": ["grok.com", "x.ai", "claude.ai", "anthropic.com", "chatgpt.com", "openai.com"]
+}
